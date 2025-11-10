@@ -4,7 +4,17 @@ import { AuthContext } from "../contexts/AuthContext";
 
 const NavBar = () => {
 
-    const { user } = use(AuthContext);
+  const { user, signOutUser } = use(AuthContext);
+
+  const handleSignOut = () => {
+    signOutUser()
+      .then(() => {
+        console.log("User signed out successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   
   
     const links = (
@@ -33,7 +43,7 @@ const NavBar = () => {
             <NavLink className="px-4 py-2 text-md font-semibold" to="/profile">Profile</NavLink>
         </li>
         <li>
-            <button className="px-4 py-2 text-md font-semibold">Logout</button>
+            <button onClick={handleSignOut} className="px-4 py-2 text-md font-semibold">Signout</button>
         </li>
     </div>
     ) : (
