@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center pb-2 gap-6">
           <div className="sm:col-span-2 lg:col-span-1 text-center md:text-left">
             <div className='flex justify-center md:justify-start gap-x-2 items-center mb-4'>
-              <a className="btn btn-ghost text-xl">daisyUI</a>
+              <a className="btn btn-ghost text-xl">dailyFIX</a>
             </div>
             <p className="text-black mb-6 max-w-xs mx-auto md:mx-0">
               The ultimate destination for discovering the best toys for your kids.
