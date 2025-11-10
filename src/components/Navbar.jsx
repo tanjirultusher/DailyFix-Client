@@ -1,8 +1,13 @@
-import React from "react";
+import React, { use } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 
 const NavBar = () => {
-  const links = (
+
+    const { user } = use(AuthContext);
+  
+  
+    const links = (
     <>
       <li>
         <NavLink className="px-4 py-2 text-md font-semibold" to="/">Home</NavLink>
@@ -22,16 +27,26 @@ const NavBar = () => {
     </>
   );
 
-  const authLinks = (
+  const authLinks = user ? (
     <div className="flex gap-4">
-      <li>
-        <a className="px-4 py-2 text-md font-semibold">Login</a>
-      </li>
-      <li>
-        <a className="px-4 py-2 text-md font-semibold">Register</a>
-      </li>
+        <li>
+            <NavLink className="px-4 py-2 text-md font-semibold" to="/profile">Profile</NavLink>
+        </li>
+        <li>
+            <button className="px-4 py-2 text-md font-semibold">Logout</button>
+        </li>
     </div>
-  );
+    ) : (
+    <div className="flex gap-4">
+        <li>
+            <NavLink className="px-4 py-2 text-md font-semibold" to="/login">Login</NavLink>
+        </li>
+        <li>
+            <NavLink className="px-4 py-2 text-md font-semibold" to="/register">Register</NavLink>
+        </li>
+    </div>
+    );
+
 
   return (
     <div className="navbar bg-base-100 px-10 py-5 items-center sticky top-0 z-50 shadow">
