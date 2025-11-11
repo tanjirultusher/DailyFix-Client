@@ -41,9 +41,36 @@ const Register = () => {
     setSuccess(false);
 
     createUser(email, password)
-      .then((result) => {
-        updateProfile(result.user,{photoURL : photoURL, displayName : name});
-        console.log("after create a new user", result.user);
+        .then((result) => {
+        const user = result.user;
+        
+        return updateProfile(user, {
+         displayName: name,    
+         photoURL: photoURL,  
+        }).then(() => user);
+    })
+    .then((user) => {
+    console.log("After profile update:", user);
+
+    const newUser = {
+      name: user.displayName,
+      email: user.email,
+      image: user.photoURL,
+      uid: user.uid,
+    };
+        //create user in database
+    fetch('http://localhost:3000/users',{
+        method : 'POST',
+        headers : {
+                'content-type' : 'application/json'
+        },
+        body: JSON.stringify(newUser)
+        })
+            .then(res => res.json())
+            .then(data =>{
+            console.log('data after user save', data);
+        })
+
         signOutUser();
         setSuccess(true);
         event.target.reset();
@@ -59,7 +86,28 @@ const Register = () => {
     signInWithGoogle()
       .then((result) => {
         console.log(result.user);
-        navigate(location?.state || "/");
+        const newUser = {
+            name : result.user.displayName,
+            email : result.user.email,
+            image : result.user.photoURL,
+            uid : result.user.uid
+
+        }
+
+        //create user in database
+        fetch('http://localhost:3000/users',{
+            method : 'POST',
+            headers : {
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify(newUser)
+        })
+            .then(res => res.json())
+            .then(data =>{
+            console.log('data after user save', data);
+        })
+
+        navigate(location?.state || "/login");
       })
       .catch((error) => {
         console.log(error);

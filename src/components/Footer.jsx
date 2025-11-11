@@ -7,16 +7,16 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center pb-2 gap-6">
           <div className="sm:col-span-2 lg:col-span-1 text-center md:text-left">
-            <div className='flex justify-center md:justify-start gap-x-2 items-center mb-2'>
+            <div className='flex justify-center md:justify-start gap-x-2 items-center'>
               <a className="btn btn-ghost text-xl">dailyFIX</a>
             </div>
-            <p className="text-black mb-6 max-w-xs mx-auto md:mx-0">
+            <p className="text-black text-md mb-6">
               dailyFIX – Local Household Service Finder.
             </p>
           </div>
 
           <div className="text-center md:text-right">
-            <h4 className="font-bold text-md mb-2">Connect With Us</h4>
+            <h4 className="font-bold text-lg mb-2">Connect With Us</h4>
             <div className="flex justify-center md:justify-end space-x-4">
               <a target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-black hover:text-white transition-colors duration-300">
                 <Facebook size={24} />

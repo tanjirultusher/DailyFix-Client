@@ -1,15 +1,17 @@
 import React, { use } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 
 const NavBar = () => {
 
   const { user, signOutUser } = use(AuthContext);
-
+  const navigate = useNavigate();
+  
   const handleSignOut = () => {
     signOutUser()
       .then(() => {
         console.log("User signed out successfully");
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);
@@ -25,15 +27,19 @@ const NavBar = () => {
       <li>
         <NavLink className="px-4 py-2 text-md font-semibold" to="/services">Services</NavLink>
       </li>
-      <li>
-        <NavLink className="px-4 py-2 text-md font-semibold" to="/myservices">My Services</NavLink>
-      </li>
-      <li>
-        <NavLink className="px-4 py-2 text-md font-semibold" to="/addservice">Add Service</NavLink>
-      </li>
-      <li>
-        <NavLink className="px-4 py-2 text-md font-semibold" to="/bookings">Bookings</NavLink>
-      </li>
+      {
+        user && <>
+          <li>
+            <NavLink className="px-4 py-2 text-md font-semibold" to="/myservices">My Services</NavLink>
+        </li>
+        <li>
+            <NavLink className="px-4 py-2 text-md font-semibold" to="/addservice">Add Service</NavLink>
+        </li>
+        <li>
+          <NavLink className="px-4 py-2 text-md font-semibold" to="/bookings">Bookings</NavLink>
+        </li> 
+        </>
+      }
     </>
   );
 
