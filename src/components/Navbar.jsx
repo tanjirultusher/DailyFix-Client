@@ -3,10 +3,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 
 const NavBar = () => {
-
   const { user, signOutUser } = use(AuthContext);
   const navigate = useNavigate();
-  
+
   const handleSignOut = () => {
     signOutUser()
       .then(() => {
@@ -17,52 +16,77 @@ const NavBar = () => {
         console.log(error);
       });
   };
-  
-  
-    const links = (
+
+  const links = (
     <>
       <li>
-        <NavLink className="px-4 py-2 text-md font-semibold" to="/">Home</NavLink>
+        <NavLink className="px-4 py-2 text-md font-semibold" to="/">
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink className="px-4 py-2 text-md font-semibold" to="/services">Services</NavLink>
+        <NavLink className="px-4 py-2 text-md font-semibold" to="/services">
+          Services
+        </NavLink>
       </li>
-      {
-        user && <>
+      {user && (
+        <>
           <li>
-            <NavLink className="px-4 py-2 text-md font-semibold" to="/myservices">My Services</NavLink>
-        </li>
-        <li>
-            <NavLink className="px-4 py-2 text-md font-semibold" to="/addservice">Add Service</NavLink>
-        </li>
-        <li>
-          <NavLink className="px-4 py-2 text-md font-semibold" to="/bookings">My Bookings</NavLink>
-        </li> 
+            <NavLink
+              className="px-4 py-2 text-md font-semibold"
+              to="/myservices"
+            >
+              My Services
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className="px-4 py-2 text-md font-semibold"
+              to="/addservice"
+            >
+              Add Service
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="px-4 py-2 text-md font-semibold" to="/bookings">
+              My Bookings
+            </NavLink>
+          </li>
         </>
-      }
+      )}
     </>
   );
 
   const authLinks = user ? (
     <div className="flex gap-4">
-        <li>
-            <NavLink className="px-4 py-2 text-md font-semibold" to="/profile">Profile</NavLink>
-        </li>
-        <li>
-            <button onClick={handleSignOut} className="px-4 py-2 text-md font-semibold">Signout</button>
-        </li>
+      <li>
+        <NavLink className="px-4 py-2 text-md font-semibold" to="/profile">
+          Profile
+        </NavLink>
+      </li>
+      <li>
+        <button
+          onClick={handleSignOut}
+          className="btn btn-primary px-4 py-2 text-white text-md font-semibold"
+        >
+          Signout
+        </button>
+      </li>
     </div>
-    ) : (
+  ) : (
     <div className="flex gap-4">
-        <li>
-            <NavLink className="px-4 py-2 text-md font-semibold" to="/login">Login</NavLink>
-        </li>
-        <li>
-            <NavLink className="px-4 py-2 text-md font-semibold" to="/register">Register</NavLink>
-        </li>
+      <li>
+        <NavLink className="px-4 py-2 text-md font-semibold" to="/login">
+          Login
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className="px-4 py-2 text-md font-semibold" to="/register">
+          Register
+        </NavLink>
+      </li>
     </div>
-    );
-
+  );
 
   return (
     <div className="navbar bg-base-100 px-10 py-5 items-center sticky top-0 z-50 shadow">
@@ -76,14 +100,24 @@ const NavBar = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h8m-8 6h16"
+              />
             </svg>
           </div>
-          <ul tabIndex="-1" className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow">
+          <ul
+            tabIndex="-1"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow"
+          >
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">dailyFIX</a>
+        <h2 className="text-4xl font-bold text-center">
+          daily<span className="text-primary">FIX</span>
+        </h2>
       </div>
 
       <div className="navbar-center hidden lg:flex">
