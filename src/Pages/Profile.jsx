@@ -26,15 +26,15 @@ function Profile() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-black">
       <div className="flex flex-col justify-center items-center z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-4 text-center text-xl">
-          <h2 className="text-xl font-bold text-black text-center">
+          <h2 className="text-xl font-bold text-white text-center">
             Personal Information
           </h2>
-          <p className="text-black text-lg">Manage your profile and preferences</p>
+          <p className="text-white text-lg">Manage your profile and preferences</p>
         </div>
-        <div className="space-y-6 bg-gray-300 rounded-lg p-6">
+        <div className="space-y-6 bg-white rounded-lg p-6">
           <div className="flex items-center space-x-6 mb-6">
             <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-blue-400 shadow-lg transition-transform duration-300 hover:scale-105">
               <img
