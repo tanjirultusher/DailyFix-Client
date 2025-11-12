@@ -36,7 +36,7 @@ const NavBar = () => {
             <NavLink className="px-4 py-2 text-md font-semibold" to="/addservice">Add Service</NavLink>
         </li>
         <li>
-          <NavLink className="px-4 py-2 text-md font-semibold" to="/bookings">Bookings</NavLink>
+          <NavLink className="px-4 py-2 text-md font-semibold" to="/bookings">My Bookings</NavLink>
         </li> 
         </>
       }

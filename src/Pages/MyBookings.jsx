@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Bookings = () => {
+const MyBookings = () => {
   return (
     <div>Bookings</div>
   );
 };
 
-export default Bookings;
+export default MyBookings;

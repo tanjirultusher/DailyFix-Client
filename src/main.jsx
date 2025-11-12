@@ -11,7 +11,7 @@ import Login from './components/Login';
 import Profile from './Pages/Profile';
 import Services from './Pages/Services';
 import AddServices from './Pages/AddServices';
-import Bookings from './Pages/Bookings';
+import MyBookings from './Pages/MyBookings';
 import MyServices from './Pages/MyServices';
 import ServiceDetail from './Pages/ServiceDetail';
 
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'bookings',
-        Component: Bookings
+        Component: MyBookings
       },
       {
         path: 'myservices',
