@@ -28,6 +28,7 @@ const MyBookings = () => {
             <thead className="bg-gray-100">
               <tr>
                 <th className="px-4 py-2 text-left">Service ID</th>
+                <th className="px-4 py-2 text-left">Service Name</th>               
                 <th className="px-4 py-2 text-left">Booking Date</th>
                 <th className="px-4 py-2 text-left">Price</th>
                 <th className="px-4 py-2 text-left">Action</th>
@@ -40,6 +41,7 @@ const MyBookings = () => {
                   className="hover:bg-gray-50 transition-colors"
                 >
                   <td className="px-4 py-2">{booking.serviceId}</td>
+                  <td className="px-4 py-2">{booking.serviceTitle}</td>                 
                   <td className="px-4 py-2">{booking.bookingDate}</td>
                   <td className="px-4 py-2">{booking.price} BDT</td>
                   <td className="px-4 py-2 text-left">

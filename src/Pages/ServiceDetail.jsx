@@ -40,7 +40,17 @@ const ServiceDetail = () => {
     );
   }
 
-  const handleBookingModalOpen = () => {
+   const handleBookingModalOpen = () => {
+    if (user?.email === service.providerEmail) {
+      Swal.fire({
+        title: "Not Allowed!",
+        text: "You cannot book your own service.",
+        icon: "warning",
+        confirmButtonColor: "#3085d6",
+      });
+      return;
+    }
+
     bookingModalRef.current.showModal();
   };
 
@@ -49,6 +59,7 @@ const ServiceDetail = () => {
 
     const newBooking = {
       userEmail: user?.email,
+      serviceTitle: service.serviceTitle,
       serviceId: service._id,
       bookingDate: new Date().toISOString().split("T")[0],
       price: service.minPrice,
@@ -140,6 +151,15 @@ const ServiceDetail = () => {
                       name="email"
                       className="input w-full"
                       value={user?.email || ""}
+                      readOnly
+                    />
+
+                    <label className="label">Service Tilte</label>
+                    <input
+                      type="text"
+                      name="serviceTitle"
+                      className="input w-full"
+                      value={service.serviceTitle || ""}
                       readOnly
                     />
 

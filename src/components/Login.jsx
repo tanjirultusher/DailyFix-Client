@@ -45,11 +45,11 @@ const Login = () => {
   });
 
   return (
-    <div className="hero bg-base-200 min-h-screen">
+    <div className="hero bg-primary min-h-[80vh]">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold">Login now!</h1>
-          <p className="py-6 text-lg text-gray-600">
+          <p className="py-6 text-lg text-white">
             Welcome back! Please log in to continue exploring our toy world.
           </p>
         </div>
@@ -92,7 +92,7 @@ const Login = () => {
                 </div>
                 <button
                   type="submit"
-                  className="btn btn-neutral mt-4 w-full text-xl"
+                  className="btn bg-primary text-white mt-4 w-full text-lg hover:bg-primary/90"
                 >
                   Login
                 </button>
@@ -135,7 +135,7 @@ const Login = () => {
 
             <p className="mt-3 text-center">
               Don’t have an account?{" "}
-              <Link className="text-blue-400 underline" to="/register">
+              <Link className="text-primary underline" to="/register">
                 Register
               </Link>
             </p>

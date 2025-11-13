@@ -7,7 +7,7 @@ import Footer from '../components/Footer.jsx';
 const Root = () => {
   return (
     <div className="min-h-screen flex flex-col">
-        <Navbar />
+        <Navbar className = "mb-2" />
         <main className="grow">
           <Outlet />
         </main>

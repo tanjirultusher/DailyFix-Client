@@ -15,104 +15,103 @@ const Register = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleRegister = (event) => {
-    event.preventDefault();
-    const name = event.target.name.value;
-    const photoURL = event.target.photoURL.value;
-    const email = event.target.email.value;
-    const password = event.target.password.value;
+const handleRegister = (event) => {
+  event.preventDefault();
+  const name = event.target.name.value;
+  const photoURL = event.target.photoURL.value;
+  const email = event.target.email.value;
+  const role = event.target.role.value; 
+  const password = event.target.password.value;
 
-    const passwordPattern =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
+  const passwordPattern =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
 
-    if (!passwordPattern.test(password)) {
-      setError(
-        "Password must be at least 6 characters long, with upper, lower, and special characters."
-      );
-      return;
-    }
+  if (!passwordPattern.test(password)) {
+    setError(
+      "Password must be at least 6 characters long, with upper, lower, and special characters."
+    );
+    return;
+  }
 
-    if (!terms) {
-      setError("Please accept our terms and conditions");
-      return;
-    }
+  if (!terms) {
+    setError("Please accept our terms and conditions");
+    return;
+  }
 
-    setError("");
-    setSuccess(false);
+  setError("");
+  setSuccess(false);
 
-    createUser(email, password)
-        .then((result) => {
-        const user = result.user;
-        
-        return updateProfile(user, {
-         displayName: name,    
-         photoURL: photoURL,  
-        }).then(() => user);
+  createUser(email, password)
+    .then((result) => {
+      const user = result.user;
+
+     
+      return updateProfile(user, {
+        displayName: name,
+        photoURL: photoURL,
+      }).then(() => ({ ...user, role })); 
     })
     .then((user) => {
-    console.log("After profile update:", user);
+      console.log("After profile update:", user);
 
-    const newUser = {
-      name: user.displayName,
-      email: user.email,
-      image: user.photoURL,
-      uid: user.uid,
-    };
-        //create user in database
-    fetch('http://localhost:3000/users',{
-        method : 'POST',
-        headers : {
-                'content-type' : 'application/json'
-        },
-        body: JSON.stringify(newUser)
-        })
-            .then(res => res.json())
-            .then(data =>{
-            console.log('data after user save', data);
-        })
+      
+      const newUser = {
+        name: user.displayName,
+        email: user.email,
+        image: user.photoURL,
+        role: user.role,
+        uid: user.uid,
+      };
 
-        signOutUser();
-        setSuccess(true);
-        event.target.reset();
-
-      })
-      .catch((error) => {
-        console.error("error happened", error.message);
-        setError(error.message);
+      // send user to database
+      return fetch("http://localhost:3000/users", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(newUser),
       });
-  };
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("data after user save", data);
+      signOutUser();
+      setSuccess(true);
+      event.target.reset();
+    })
+    .catch((error) => {
+      console.error("error happened", error.message);
+      setError(error.message);
+    });
+};
 
-  const handleGoogleSignUp = () => {
-    signInWithGoogle()
-      .then((result) => {
-        console.log(result.user);
-        const newUser = {
-            name : result.user.displayName,
-            email : result.user.email,
-            image : result.user.photoURL,
-            uid : result.user.uid
+const handleGoogleSignUp = () => {
+  signInWithGoogle()
+    .then((result) => {
+      const user = result.user;
 
-        }
+      const newUser = {
+        name: user.displayName,
+        email: user.email,
+        image: user.photoURL,
+        role: "user", 
+        uid: user.uid,
+      };
 
-        //create user in database
-        fetch('http://localhost:3000/users',{
-            method : 'POST',
-            headers : {
-                'content-type' : 'application/json'
-            },
-            body: JSON.stringify(newUser)
-        })
-            .then(res => res.json())
-            .then(data =>{
-            console.log('data after user save', data);
-        })
-
-        navigate(location?.state || "/login");
+      fetch("http://localhost:3000/users", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(newUser),
       })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("data after user save", data);
+        });
+
+      navigate(location?.state || "/login");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
   const handleTogglePasswordShow = (event) => {
     event.preventDefault();
@@ -123,11 +122,11 @@ const Register = () => {
   });
 
   return (
-    <div className="hero bg-base-200 min-h-screen">
+    <div className="hero bg-primary min-h-[80vh]">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold">Register now!</h1>
-          <p className="py-2 text-gray-600">
+          <p className="py-2 text-white">
             Create your account to get started with our platform.
           </p>
         </div>
@@ -140,7 +139,7 @@ const Register = () => {
                 <label className="label font-semibold">Name</label>
                 <input
                   type="text" name="name"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full h-8"
                   placeholder="Enter your name"
                 />
 
@@ -148,8 +147,16 @@ const Register = () => {
                 <label className="label font-semibold">Photo URL</label>
                 <input
                   type="text" name="photoURL"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full h-8"
                   placeholder="Enter your Photo URL"
+                />
+
+                {/* name field */}
+                <label className="label font-semibold">Role</label>
+                <input
+                  type="text" name="role"
+                  className="input input-bordered w-full h-8"
+                  placeholder="Enter your role"
                 />
 
                 {/* email field */}
@@ -157,7 +164,7 @@ const Register = () => {
                 <input
                   type="email"
                   name="email"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full h-8"
                   placeholder="Enter your email"
                 />
                 {/* password field */}
@@ -166,12 +173,12 @@ const Register = () => {
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full h-8"
                     placeholder="Password"
                   />
                   <button
                     onClick={handleTogglePasswordShow}
-                    className="btn btn-xs top-2 right-5 absolute"
+                    className="btn btn-xs right-1 mt-1 absolute"
                   >
                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                   </button>
@@ -180,7 +187,7 @@ const Register = () => {
                 <label className="label cursor-pointer flex items-center gap-2 mt-2">
                   <input
                     type="checkbox"
-                    className="checkbox"
+                    className="checkbox w-4 h-4"
                     onChange={(e) => setTerms(e.target.checked)}
                   />
                   <span>Accept Terms and Conditions</span>
@@ -188,7 +195,7 @@ const Register = () => {
 
                 <button
                   type="submit"
-                  className="btn btn-neutral mt-2 w-full text-md"
+                  className="btn bg-primary text-white mt-2 h-8 w-full text-lg hover:bg-primary/90"
                 >
                   Register
                 </button>
@@ -202,7 +209,7 @@ const Register = () => {
 
             <button
               onClick={handleGoogleSignUp}
-              className="btn bg-white text-black border-[#e5e5e5] mt-3"
+              className="btn bg-white text-black border-[#e5e5e5] mt-1 h-8"
             >
               <svg
                 aria-label="Google logo"
@@ -236,7 +243,7 @@ const Register = () => {
 
             <p className="text-center text-sm mt-2">
               Already have an account?{" "}
-              <Link className="text-blue-400 underline" to="/login">
+              <Link className="text-primary underline" to="/login">
                 Login
               </Link>
             </p>

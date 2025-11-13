@@ -89,7 +89,7 @@ const NavBar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100 px-10 py-5 items-center sticky top-0 z-50 shadow">
+    <div className="navbar bg-base-100 px-10 py-4 items-center sticky top-0 z-50 shadow">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -110,7 +110,7 @@ const NavBar = () => {
           </div>
           <ul
             tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-2 w-52 p-2 shadow"
           >
             {links}
           </ul>
