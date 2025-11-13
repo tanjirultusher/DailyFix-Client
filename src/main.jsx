@@ -14,6 +14,7 @@ import AddServices from './Pages/AddServices';
 import MyBookings from './Pages/MyBookings';
 import MyServices from './Pages/MyServices';
 import ServiceDetail from './Pages/ServiceDetail';
+import ErrorPage from './Pages/ErrorPage';
 
 const router = createBrowserRouter([
   {
@@ -54,7 +55,11 @@ const router = createBrowserRouter([
       {
         path: '/service/:_id',
         Component: ServiceDetail
-      }
+      },
+      {
+        path: "*",
+        Component: ErrorPage
+      },
     ]
   }
 ]) 

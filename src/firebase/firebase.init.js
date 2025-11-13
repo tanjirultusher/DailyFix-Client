@@ -7,12 +7,13 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDvlMPsxM5Xt9a0Wo1pbMPKxz4JUqgb9N8",
-  authDomain: "daily-fix-auth.firebaseapp.com",
-  projectId: "daily-fix-auth",
-  storageBucket: "daily-fix-auth.firebasestorage.app",
-  messagingSenderId: "951389033131",
-  appId: "1:951389033131:web:8161f794391b200c505dee"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID, // Optional
 };
 
 // Initialize Firebase

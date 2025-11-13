@@ -6,7 +6,6 @@ const Footer = () => {
     <footer className="bg-white shadow-inner rounded-t-xl text-black pt-10 pb-6">
       <div className="max-w-7xl mx-auto px-8">
         <div className="flex flex-col md:flex-row justify-between items-center pb-4 gap-6">
-          {/* Brand */}
           <div className="text-center md:text-left">
             <h2 className="text-4xl font-bold">
               daily<span className="text-primary">FIX</span>
@@ -16,7 +15,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Social */}
           <div className="text-center md:text-right">
             <h4 className="font-bold text-lg mb-3 text-primary">
               Connect With Us

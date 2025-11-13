@@ -134,7 +134,6 @@ const ServiceDetail = () => {
               Book Now
             </button>
 
-            {/* Booking Modal */}
             <dialog
               ref={bookingModalRef}
               className="modal modal-bottom sm:modal-middle"

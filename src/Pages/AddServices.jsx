@@ -44,7 +44,7 @@ const AddServices = () => {
       .then((data) => {
         console.log("Service saved:", data);
         alert("Service added successfully!");
-        // Clear form
+
         setServiceTitle("");
         setDescription("");
         setCategory("");
