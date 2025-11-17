@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { signInUser, signInWithGoogle } = useContext(AuthContext);
@@ -18,20 +19,55 @@ const Login = () => {
     signInUser(email, password)
       .then((result) => {
         event.target.reset();
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "success",
+          title: "Login successful!",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+        });
         navigate(location.state || "/");
       })
       .catch((error) => {
-        console.error("error happened", error.message);
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "error",
+          title: error.message || "Login failed!",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+        });
       });
   };
 
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "success",
+          title: "Logged in with Google!",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+        });
+
         navigate(location?.state || "/");
       })
       .catch((error) => {
-        console.log(error);
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "error",
+          title: error.message || "Google login failed!",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+        });
       });
   };
 

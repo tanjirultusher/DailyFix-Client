@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { servicesPromise } from "../Pages/Services";
 import { Link } from "react-router-dom";
+import { FaStar } from "react-icons/fa";
 
 const PopularServices = () => {
-
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    servicesPromise
+    fetch("http://localhost:3000/bookings")
+      .then((res) => res.json())
       .then((data) => {
-        setServices(data.slice(0, 6)); 
+        const rating5 = data.filter((s) => s.rating === 5);
+        const remainingCount = 6 - rating5.length;
+
+        let finalServices = [...rating5];
+
+        if (remainingCount > 0) {
+          const rating4 = data
+            .filter((s) => s.rating === 4)
+            .slice(0, remainingCount);
+          finalServices = [...finalServices, ...rating4];
+        }
+
+        setServices(finalServices.slice(0, 6));
         setLoading(false);
       })
       .catch((err) => {
@@ -25,8 +37,8 @@ const PopularServices = () => {
 
   return (
     <div>
-      <h2 className="text-4xl font-bold text-center m-6">
-        Our <span className="text-primary">Services</span>
+      <h2 className="text-4xl font-bold text-center mt-6 mb-2">
+        Top <span className="text-primary">Rated Services</span>
       </h2>
 
       <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center p-6">
@@ -42,11 +54,18 @@ const PopularServices = () => {
                 className="rounded-xl h-56 w-full object-cover"
               />
             </figure>
+
             <div className="card-body items-center text-center">
               <h2 className="card-title">{service.serviceTitle}</h2>
-              <p className="text-gray-600 text-sm">{service.description}</p>
+
+              <div className="flex gap-1 text-yellow-500 my-2">
+                {[...Array(service.rating)].map((_, i) => (
+                  <FaStar key={i} />
+                ))}
+              </div>
+
               <Link to={`/service/${service._id}`}>
-                <div className="card-actions mt-4">
+                <div className="card-actions mt-2">
                   <button className="btn btn-primary btn-sm">View Details</button>
                 </div>
               </Link>

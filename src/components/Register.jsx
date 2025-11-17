@@ -4,6 +4,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
 import { AuthContext } from "../contexts/AuthContext";
+import Swal from "sweetalert2";
+
 
 const Register = () => {
   const [success, setSuccess] = useState(false);
@@ -15,103 +17,122 @@ const Register = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-const handleRegister = (event) => {
-  event.preventDefault();
-  const name = event.target.name.value;
-  const photoURL = event.target.photoURL.value;
-  const email = event.target.email.value;
-  const role = event.target.role.value; 
-  const password = event.target.password.value;
+  const handleRegister = (event) => {
+    event.preventDefault();
+    const name = event.target.name.value;
+    const photoURL = event.target.photoURL.value;
+    const email = event.target.email.value;
+    const role = event.target.role.value; 
+    const password = event.target.password.value;
 
-  const passwordPattern =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
 
-  if (!passwordPattern.test(password)) {
-    setError(
-      "Password must be at least 6 characters long, with upper, lower, and special characters."
-    );
-    return;
-  }
-
-  if (!terms) {
-    setError("Please accept our terms and conditions");
-    return;
-  }
-
-  setError("");
-  setSuccess(false);
-
-  createUser(email, password)
-    .then((result) => {
-      const user = result.user;
-
-     
-      return updateProfile(user, {
-        displayName: name,
-        photoURL: photoURL,
-      }).then(() => ({ ...user, role })); 
-    })
-    .then((user) => {
-      console.log("After profile update:", user);
-
-      
-      const newUser = {
-        name: user.displayName,
-        email: user.email,
-        image: user.photoURL,
-        role: user.role,
-        uid: user.uid,
-      };
-
-      // send user to database
-      return fetch("http://localhost:3000/users", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(newUser),
-      });
-    })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log("data after user save", data);
-      signOutUser();
-      setSuccess(true);
-      event.target.reset();
-    })
-    .catch((error) => {
-      console.error("error happened", error.message);
-      setError(error.message);
-    });
-};
-
-const handleGoogleSignUp = () => {
-  signInWithGoogle()
-    .then((result) => {
-      const user = result.user;
-
-      const newUser = {
-        name: user.displayName,
-        email: user.email,
-        image: user.photoURL,
-        role: "user", 
-        uid: user.uid,
-      };
-
-      fetch("http://localhost:3000/users", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(newUser),
+    if (!passwordPattern.test(password)) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Password must be at least 6 characters long, with upper, lower, and special characters.",
       })
+      return;
+    }
+
+    if (!terms) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please accept our terms and conditions",
+      });
+      return;
+    }
+
+    setError("");
+    setSuccess(false);
+
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+
+        return updateProfile(user, {
+          displayName: name,
+          photoURL: photoURL,
+        }).then(() => ({ ...user, role })); 
+      })
+      .then((user) => {
+        console.log("After profile update:", user);
+
+        const newUser = {
+          name: user.displayName,
+          email: user.email,
+          image: user.photoURL,
+          role: user.role,
+          uid: user.uid,
+        };
+
+        return fetch("http://localhost:3000/users", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(newUser),
+        });
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data after user save", data);
+        signOutUser();
+        setSuccess(true);
+        event.target.reset();
+        Swal.fire({
+          icon: "success",
+          title: "Registration Successful",
+          text: "Your account has been created successfully!",
+        });
+      })
+      .catch((error) => {
+        console.error("error happened", error.message);
+        Swal.fire({
+          icon: "error",
+          title: "Registration Failed",
+          text: error.message,
+        });
+      });
+    };
+
+    const handleGoogleSignUp = () => {
+      signInWithGoogle()
+      .then((result) => {
+        const user = result.user;
+
+        const newUser = {
+          name: user.displayName,
+          email: user.email,
+          image: user.photoURL,
+          role: "user", 
+          uid: user.uid,
+        };
+
+        fetch("http://localhost:3000/users", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(newUser),
+        })
         .then((res) => res.json())
         .then((data) => {
-          console.log("data after user save", data);
+          Swal.fire({
+              icon: "success",
+              title: "Google Registration Successful",
+              text: "Your account has been created successfully!",
+            });
         });
-
-      navigate(location?.state || "/login");
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+        navigate(location?.state || "/register");
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Google Sign-Up Failed",
+          text: error.message,
+        });
+      });
+    };
 
   const handleTogglePasswordShow = (event) => {
     event.preventDefault();
@@ -238,7 +259,7 @@ const handleGoogleSignUp = () => {
                   ></path>
                 </g>
               </svg>
-              Login with Google
+              Register with Google
             </button>
 
             <p className="text-center text-sm mt-2">

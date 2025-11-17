@@ -1,8 +1,12 @@
-import React, { use, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { AuthContext } from "../contexts/AuthContext";
 
 
 const AddServices = () => {
+
+  useEffect(()=>{
+    document.title = "Add Service";
+  })
 
   const { user } = use(AuthContext);
   const [serviceTitle, setServiceTitle] = useState("");
@@ -60,8 +64,8 @@ const AddServices = () => {
   };
 
   return (
-    <div className="flex justify-center p-10">
-      <div className="card w-full max-w-md shadow-md bg-base-100 p-6">
+    <div className="flex justify-center p-5">
+      <div className="card w-full max-w-md shadow-lg bg-base-100 p-6">
         <h2 className="text-2xl font-bold mb-4 text-center">Add New Service</h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <input

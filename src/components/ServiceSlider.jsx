@@ -1,77 +1,63 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
 import { servicesPromise } from "../Pages/Services";
 
 const ServiceSlider = () => {
   const [services, setServices] = useState([]);
-  const paginationElRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const intervalRef = useRef(null);
 
   useEffect(() => {
     servicesPromise
       .then((data) => {
-        const limited = data.slice(0, 3); 
+        const limited = data.slice(0, 4);
         setServices(limited);
       })
       .catch((err) => console.error("Error fetching services:", err));
   }, []);
 
+  useEffect(() => {
+    if (services.length === 0) return;
+
+    intervalRef.current = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % services.length);
+    }, 3000); 
+
+    return () => clearInterval(intervalRef.current);
+  }, [services]);
+
   return (
-    <div id="service-slider" className="relative mx-auto w-full h-full p-10">
-      <Swiper
-        grabCursor={true}
-        centeredSlides={true}
-        loop={true}
-        slidesPerView={3}
-        spaceBetween={30}
-        pagination={{
-          clickable: true,
-          el: paginationElRef.current,
-        }}
-        onBeforeInit={(swiper) => {
-          swiper.params.pagination.el = paginationElRef.current;
-        }}
-        autoplay={{
-          delay: 1500,
-          disableOnInteraction: false,
-        }}
-        speed={800} 
-        breakpoints={{
-          320: { slidesPerView: 1, spaceBetween: 10 },
-          768: { slidesPerView: 2, spaceBetween: 20 },
-          1024: { slidesPerView: 3, spaceBetween: 30 },
-        }}
-        modules={[Pagination, Autoplay]}
-        className="w-full py-8"
-      >
-        {services.map((service) => (
-          <SwiperSlide
+    <div className="w-full relative">
+      <div className="carousel w-full">
+        {services.map((service, index) => (
+          <div
             key={service._id}
-            className="w-full h-[350px] md:h-[400px] md:w-[280px]"
+            id={`item${index + 1}`}
+            className={`carousel-item w-full transition-all duration-500 ${
+              index === activeIndex ? "block" : "hidden"
+            }`}
           >
-            <div className="w-full h-full bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_25px_rgba(0,0,0,0.15)] flex flex-col">
-              <div className="relative w-full h-[70%] overflow-hidden">
-                <img
-                  src={service.image}
-                  alt={service.serviceTitle}
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                />
-              </div>
-              <div className="p-3 flex-1 flex flex-col justify-center text-center">
-                <h3 className="text-gray-800 text-lg font-bold line-clamp-1">
-                  {service.serviceTitle}
-                </h3>
-              </div>
+            <div className="w-full h-[400px] md:h-[500px] bg-white overflow-hidden flex items-center justify-center border border-gray-200">
+              <img
+                src={service.image || "https://i.ibb.co/4pDNDk1/default.jpg"}
+                alt={service.serviceTitle}
+                className="w-full h-full object-cover"
+              />
             </div>
-          </SwiperSlide>
+          </div>
         ))}
-      </Swiper>
-      <div
-        ref={paginationElRef}
-        className="swiper-pagination mt-4 flex items-center justify-center"
-      ></div>
+      </div>
+
+      <div className="flex w-full justify-center gap-2 py-4">
+        {services.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setActiveIndex(index)}
+            className={`btn btn-xs ${activeIndex === index ? "btn-primary" : ""}`}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

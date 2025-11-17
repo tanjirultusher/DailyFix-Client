@@ -10,6 +10,7 @@ const Services = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = "Services";
     setLoading(true);
     servicesPromise
       .then((data) => {
@@ -32,12 +33,12 @@ const Services = () => {
   }
 
   return (
-    <div>
-      <h2 className="text-4xl font-bold text-center m-6">
+    <div className="mb-10 px-6">
+      <h2 className="text-4xl font-bold text-center mt-6 mb-2">
         Our <span className="text-primary">Services</span>
       </h2>
 
-      <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center p-6">
+      <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center p-2">
         {services.map((service) => (
           <div
             key={service._id}
@@ -52,9 +53,9 @@ const Services = () => {
             </figure>
             <div className="card-body items-center text-center">
               <h2 className="card-title">{service.serviceTitle}</h2>
-              <p className="text-gray-600 text-sm">{service.description}</p>
+              <p className="text-gray-500 text-sm">{service.description}</p>
               <Link to={`/service/${service._id}`}>
-                <div className="card-actions mt-4">
+                <div className="card-actions mt-1">
                   <button className="btn btn-primary btn-sm">View Details</button>
                 </div>
               </Link>

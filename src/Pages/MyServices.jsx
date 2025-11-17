@@ -22,6 +22,7 @@ const MyServices = () => {
   const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
+    document.title = "My Services";
     if (!loading && user?.email) {
       setLoadingServices(true);
 
@@ -154,8 +155,8 @@ const MyServices = () => {
   };
 
   return (
-    <div className="p-10">
-      <h2 className="text-4xl font-bold text-center mb-10">
+    <div className="p-6">
+      <h2 className="text-4xl font-bold text-center mb-5">
         My <span className="text-primary">Services</span>
       </h2>
 
@@ -165,22 +166,22 @@ const MyServices = () => {
             key={service._id}
             className="card bg-base-100 w-96 shadow-md hover:shadow-lg transition-all"
           >
-            <figure className="px-10 pt-10">
+            <figure className="px-4 pt-4">
               <img
                 src={service.image || "https://i.ibb.co/4pDNDk1/default.jpg"}
                 alt={service.serviceTitle}
-                className="rounded-xl h-56 w-full object-cover"
+                className="rounded-xl h-50 w-full object-cover"
               />
             </figure>
             <div className="card-body items-center text-center">
               <h2 className="card-title">{service.serviceTitle}</h2>
-              <p className="text-gray-600 text-sm mb-2">
+              <p className="text-gray-500 text-sm mb-1">
                 {service.description}
               </p>
-              <p className="text-sm font-medium text-primary mb-2">
+              <p className="text-sm font-medium text-primary mb-1">
                 Price: {service.minPrice} - {service.maxPrice} BDT
               </p>
-              <div className="flex gap-3 mt-4">
+              <div className="flex gap-3 mt-2">
                 <button
                   onClick={() => handleOpenUpdateModal(service)}
                   className="btn btn-primary btn-sm"

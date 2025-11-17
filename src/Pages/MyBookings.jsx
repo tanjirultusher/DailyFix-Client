@@ -8,6 +8,7 @@ const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
+    document.title = "Booking";
     if (user?.email) {
       fetch(`http://localhost:3000/bookings?email=${user.email}`)
         .then((res) => res.json())
@@ -65,18 +66,18 @@ const handleDeleteBooking = (_id) => {
           <table className="table-auto w-full">
             <thead className="bg-gray-100">
               <tr>
-                <th className="px-4 py-2 text-left">Service ID</th>
-                <th className="px-4 py-2 text-left">Service Name</th>               
-                <th className="px-4 py-2 text-left">Booking Date</th>
-                <th className="px-4 py-2 text-left">Price</th>
-                <th className="px-4 py-2 text-left">Action</th>
+                <th className="px-4 py-2 text-left text-gray-600">Service ID</th>
+                <th className="px-4 py-2 text-left text-gray-600">Service Name</th>               
+                <th className="px-4 py-2 text-left text-gray-600">Booking Date</th>
+                <th className="px-4 py-2 text-left text-gray-600">Price</th>
+                <th className="px-4 py-2 text-left text-gray-600">Action</th>
               </tr>
             </thead>
             <tbody>
               {bookings.map((booking) => (
                 <tr
                   key={booking._id}
-                  className="hover:bg-gray-50 transition-colors"
+                  className="hover:bg-gray-500 transition-colors"
                 >
                   <td className="px-4 py-2">{booking.serviceId}</td>
                   <td className="px-4 py-2">{booking.serviceTitle}</td>                 
