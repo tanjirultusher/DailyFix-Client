@@ -7,7 +7,7 @@ const PopularServices = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/bookings")
+    fetch("https://dailyfix-server.vercel.app/bookings")
       .then((res) => res.json())
       .then((data) => {
         const rating5 = data.filter((s) => s.rating === 5);

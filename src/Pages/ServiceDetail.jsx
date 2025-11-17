@@ -32,7 +32,7 @@ const ServiceDetail = () => {
   useEffect(() => {
     if (!service) return;
 
-    fetch("http://localhost:3000/bookings")
+    fetch("https://dailyfix-server.vercel.app/bookings")
       .then((res) => res.json())
       .then((data) => {
         const filtered = data.filter(
@@ -87,7 +87,7 @@ const ServiceDetail = () => {
       status: "pending",
     };
 
-    fetch("http://localhost:3000/bookings", {
+    fetch("https://dailyfix-server.vercel.app/bookings", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newBooking),

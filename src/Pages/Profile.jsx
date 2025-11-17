@@ -16,7 +16,7 @@ function Profile() {
 
   useEffect(() => {
     if (user?.uid) {
-      fetch(`http://localhost:3000/users/${user.uid}`)
+      fetch(`https://dailyfix-server.vercel.app/users/${user.uid}`)
         .then((res) => res.json())
         .then((data) => {
           console.log("Fetched user data:", data);
@@ -29,7 +29,7 @@ function Profile() {
 
   const handleUpdateProfile = () => {
     setUpdating(true);
-    fetch(`http://localhost:3000/users/${user.uid}`, {
+    fetch(`https://dailyfix-server.vercel.app/users/${user.uid}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

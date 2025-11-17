@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-export const servicesPromise = fetch("http://localhost:3000/services").then((res) =>
+export const servicesPromise = fetch("https://dailyfix-server.vercel.app/services").then((res) =>
   res.json()
 );
 

@@ -37,7 +37,7 @@ const AddServices = () => {
 
     setLoading(true);
 
-    fetch("http://localhost:3000/services", {
+    fetch("https://dailyfix-server.vercel.app/services", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

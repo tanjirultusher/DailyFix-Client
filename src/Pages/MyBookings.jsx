@@ -10,7 +10,7 @@ const MyBookings = () => {
   useEffect(() => {
     document.title = "Booking";
     if (user?.email) {
-      fetch(`http://localhost:3000/bookings?email=${user.email}`)
+      fetch(`https://dailyfix-server.vercel.app/bookings?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => setBookings(data))
         .catch((err) => console.error("Error fetching bookings:", err));
@@ -28,7 +28,7 @@ const handleDeleteBooking = (_id) => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/bookings/${_id}`, {
+        fetch(`https://dailyfix-server.vercel.app/bookings/${_id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json" 

@@ -26,7 +26,7 @@ const MyServices = () => {
     if (!loading && user?.email) {
       setLoadingServices(true);
 
-      fetch("http://localhost:3000/services")
+      fetch("https://dailyfix-server.vercel.app/services")
         .then((res) => res.json())
         .then((data) => {
           const myServices = data.filter(
@@ -69,7 +69,7 @@ const MyServices = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/services/${_id}?email=${user.email}`, {
+        fetch(`https://dailyfix-server.vercel.app/services/${_id}?email=${user.email}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -109,7 +109,7 @@ const MyServices = () => {
     e.preventDefault();
     setUpdating(true);
 
-    fetch(`http://localhost:3000/services/${selectedService._id}`, {
+    fetch(`https://dailyfix-server.vercel.app/services/${selectedService._id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

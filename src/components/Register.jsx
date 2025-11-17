@@ -68,7 +68,7 @@ const Register = () => {
           uid: user.uid,
         };
 
-        return fetch("http://localhost:3000/users", {
+        return fetch("https://dailyfix-server.vercel.app/users", {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify(newUser),
@@ -109,7 +109,7 @@ const Register = () => {
           uid: user.uid,
         };
 
-        fetch("http://localhost:3000/users", {
+        fetch("https://dailyfix-server.vercel.app/users", {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify(newUser),
