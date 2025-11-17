@@ -31,10 +31,9 @@ Explore multiple categories
 View service descriptions, images, and pricing
 Customer ratings & reviews (UI prepared)
 
---> Booking System (Client-Side)
+--> Add Services, Update and Delete services
 
-Book a service
-Booking success UI
+--> Booking System 
 
 
 ## Tech Stack
