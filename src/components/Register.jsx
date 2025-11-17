@@ -218,7 +218,7 @@ const Register = () => {
                   type="submit"
                   className="btn bg-primary text-white mt-2 h-8 w-full text-lg hover:bg-primary/90"
                 >
-                  Register
+                  Create Account
                 </button>
               </fieldset>
 
