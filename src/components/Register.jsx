@@ -143,18 +143,18 @@ const Register = () => {
   });
 
   return (
-    <div className="hero min-h-[80vh]">
+    <div className="hero min-h-[80vh] mt-2">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold">Register now!</h1>
-          <p className="py-2 text-white">
+          <p className="py-2 text-gray-600">
             Create your account to get started with our platform.
           </p>
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0">
-          <div className="card-body">
+          <div className="card-body shadow-sm p-4 rounded-md">
             <form onSubmit={handleRegister}>
-              <fieldset className="fieldset shadow-sm p-4 rounded-md">
+              <fieldset className="fieldset">
                 {/* name field */}
                 <label className="label font-semibold">Name</label>
                 <input
@@ -223,7 +223,15 @@ const Register = () => {
                   Create Account
                 </button>
 
-                <button
+                
+              </fieldset>
+
+              {success && (
+                <p className="text-green-500">User created successfully!</p>
+              )}
+              {error && <p className="text-red-500">{error}</p>}
+            </form>
+            <button
                   onClick={handleGoogleSignUp}
                   className="btn bg-white text-black border-[#e5e5e5] mt-1 h-8"
                 >
@@ -263,13 +271,6 @@ const Register = () => {
                     Login
                   </Link>
                 </p>
-              </fieldset>
-
-              {success && (
-                <p className="text-green-500">User created successfully!</p>
-              )}
-              {error && <p className="text-red-500">{error}</p>}
-            </form>
           </div>
         </div>
       </div>

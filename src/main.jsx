@@ -55,7 +55,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/service/:_id',
-        element: <PrivateRoute><ServiceDetail></ServiceDetail></PrivateRoute>
+        Component: ServiceDetail
       },
       {
         path: "*",

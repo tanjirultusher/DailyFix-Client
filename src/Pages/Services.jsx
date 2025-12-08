@@ -52,7 +52,7 @@ const Services = () => {
               />
             </figure>
             <div className="card-body items-center text-center">
-              <h2 className="card-title">{service._id}</h2>
+              <h2 className="card-title">{service.serviceTitle}</h2>
               <p className="text-gray-500 text-sm">{service.description}</p>
               <Link to={`/service/${service._id}`}>
                 <div className="card-actions mt-1">

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { servicesPromise } from "./Services";
 import Swal from "sweetalert2";
 import { AuthContext } from "../contexts/AuthContext";
@@ -15,6 +15,8 @@ const ServiceDetail = () => {
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
+  const navigate = useNavigate();
+  
 
   useEffect(() => {
     document.title = "Service Details";
@@ -156,121 +158,127 @@ const ServiceDetail = () => {
               Book Now
             </button>
 
-            <dialog
-              ref={bookingModalRef}
-              className="modal modal-bottom sm:modal-middle"
-            >
-              <div className="modal-box">
-                <h3 className="font-bold text-lg mb-2">Confirm Your Booking</h3>
-                <form onSubmit={handleBookingSubmit}>
-                  <fieldset className="fieldset space-y-3">
-                    <label className="label">User Email</label>
-                    <input
-                      type="email"
-                      name="email"
-                      className="input w-full"
-                      value={user?.email || ""}
-                      readOnly
-                    />
+            {user?.email ? (
+              <dialog
+                ref={bookingModalRef}
+                className="modal modal-bottom sm:modal-middle"
+              >
+                <div className="modal-box">
+                  <h3 className="font-bold text-lg mb-2">
+                    Confirm Your Booking
+                  </h3>
+                  <form onSubmit={handleBookingSubmit}>
+                    <fieldset className="fieldset space-y-3">
+                      <label className="label">User Email</label>
+                      <input
+                        type="email"
+                        name="email"
+                        className="input w-full"
+                        value={user?.email || ""}
+                        readOnly
+                      />
 
-                    <label className="label">Service Tilte</label>
-                    <input
-                      type="text"
-                      name="serviceTitle"
-                      className="input w-full"
-                      value={service.serviceTitle || ""}
-                      readOnly
-                    />
+                      <label className="label">Service Tilte</label>
+                      <input
+                        type="text"
+                        name="serviceTitle"
+                        className="input w-full"
+                        value={service.serviceTitle || ""}
+                        readOnly
+                      />
 
-                    <label className="label">Service Image</label>
-                    <input
-                      type="text"
-                      name="service Image"
-                      className="input w-full"
-                      value={service.image || ""}
-                      readOnly
-                    />
+                      <label className="label">Service Image</label>
+                      <input
+                        type="text"
+                        name="service Image"
+                        className="input w-full"
+                        value={service.image || ""}
+                        readOnly
+                      />
 
-                    <label className="label">Service ID</label>
-                    <input
-                      type="text"
-                      name="serviceId"
-                      className="input w-full"
-                      value={service._id}
-                      readOnly
-                    />
+                      <label className="label">Service ID</label>
+                      <input
+                        type="text"
+                        name="serviceId"
+                        className="input w-full"
+                        value={service._id}
+                        readOnly
+                      />
 
-                    <label className="label">Review</label>
-                    <input
-                      type="text"
-                      name="review"
-                      className="input w-full"
-                      value={review}
-                      onChange={(e) => setReview(e.target.value)}
-                    />
+                      <label className="label">Review</label>
+                      <input
+                        type="text"
+                        name="review"
+                        className="input w-full"
+                        value={review}
+                        onChange={(e) => setReview(e.target.value)}
+                      />
 
-                    <label className="label">Rating</label>
-                    <div className="flex space-x-1">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <FaStar
-                          key={star}
-                          size={24}
-                          className="cursor-pointer"
-                          color={
-                            (hoverRating || rating) >= star
-                              ? "#ffc107"
-                              : "#e4e5e9"
-                          }
-                          onClick={() => setRating(star)}
-                          onMouseEnter={() => setHoverRating(star)}
-                          onMouseLeave={() => setHoverRating(0)}
-                        />
-                      ))}
-                    </div>
+                      <label className="label">Rating</label>
+                      <div className="flex space-x-1">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <FaStar
+                            key={star}
+                            size={24}
+                            className="cursor-pointer"
+                            color={
+                              (hoverRating || rating) >= star
+                                ? "#ffc107"
+                                : "#e4e5e9"
+                            }
+                            onClick={() => setRating(star)}
+                            onMouseEnter={() => setHoverRating(star)}
+                            onMouseLeave={() => setHoverRating(0)}
+                          />
+                        ))}
+                      </div>
 
-                    <label className="label">Booking Date</label>
-                    <input
-                      type="text"
-                      name="bookingDate"
-                      className="input w-full"
-                      value={new Date().toISOString().split("T")[0]}
-                      readOnly
-                    />
+                      <label className="label">Booking Date</label>
+                      <input
+                        type="text"
+                        name="bookingDate"
+                        className="input w-full"
+                        value={new Date().toISOString().split("T")[0]}
+                        readOnly
+                      />
 
-                    <label className="label">Price</label>
-                    <input
-                      type="text"
-                      name="price"
-                      className="input w-full"
-                      value={`${service.minPrice} BDT`}
-                      readOnly
-                    />
+                      <label className="label">Price</label>
+                      <input
+                        type="text"
+                        name="price"
+                        className="input w-full"
+                        value={`${service.minPrice} BDT`}
+                        readOnly
+                      />
 
-                    <label className="label">Status</label>
-                    <input
-                      type="text"
-                      name="status"
-                      className="input w-full"
-                      value="pending"
-                      readOnly
-                    />
+                      <label className="label">Status</label>
+                      <input
+                        type="text"
+                        name="status"
+                        className="input w-full"
+                        value="pending"
+                        readOnly
+                      />
 
-                    <button
-                      type="submit"
-                      className="btn btn-primary w-full mt-4"
-                    >
-                      Confirm Booking
-                    </button>
-                  </fieldset>
-                </form>
-
-                <div className="modal-action">
-                  <form method="dialog">
-                    <button className="btn">Cancel</button>
+                      <button
+                        type="submit"
+                        className="btn btn-primary w-full mt-4"
+                      >
+                        Confirm Booking
+                      </button>
+                    </fieldset>
                   </form>
+
+                  <div className="modal-action">
+                    <form method="dialog">
+                      <button className="btn">Cancel</button>
+                    </form>
+                  </div>
                 </div>
-              </div>
-            </dialog>
+              </dialog>
+            ) : (
+              navigate("/login")
+            )}
           </div>
         </div>
 
@@ -301,7 +309,9 @@ const ServiceDetail = () => {
                   ))}
                 </div>
 
-                <p className="text-sm text-gray-700">{rev.review || "No review"}</p>
+                <p className="text-sm text-gray-700">
+                  {rev.review || "No review"}
+                </p>
               </div>
             ))}
           </div>
