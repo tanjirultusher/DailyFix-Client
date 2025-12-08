@@ -15,6 +15,7 @@ import MyBookings from './Pages/MyBookings';
 import MyServices from './Pages/MyServices';
 import ServiceDetail from './Pages/ServiceDetail';
 import ErrorPage from './Pages/ErrorPage';
+import PrivateRoute from './Route/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -41,20 +42,20 @@ const router = createBrowserRouter([
         path: 'services',
         Component: Services
       },{
-        path: 'addservice',
-        Component : AddServices
+        path: 'add-service',
+        element: <PrivateRoute><AddServices></AddServices></PrivateRoute>
       },
       {
         path: 'bookings',
-        Component: MyBookings
+        element: <PrivateRoute><MyBookings></MyBookings></PrivateRoute>
       },
       {
-        path: 'myservices',
-        Component: MyServices
+        path: 'my-services',
+        element: <PrivateRoute><MyServices></MyServices></PrivateRoute>
       },
       {
         path: '/service/:_id',
-        Component: ServiceDetail
+        element: <PrivateRoute><ServiceDetail></ServiceDetail></PrivateRoute>
       },
       {
         path: "*",

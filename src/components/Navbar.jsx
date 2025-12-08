@@ -16,7 +16,9 @@ const NavBar = () => {
   const handleTheme = (checked) => setTheme(checked ? "dark" : "light");
 
   const handleSignOut = () => {
-    signOutUser().then(() => navigate("/")).catch((err) => console.log(err));
+    signOutUser()
+      .then(() => navigate("/"))
+      .catch((err) => console.log(err));
   };
 
   const commonLinks = (
@@ -26,23 +28,20 @@ const NavBar = () => {
           Home
         </NavLink>
       </li>
+
       <li>
         <NavLink to="/services" className="px-4 py-2 text-md font-semibold">
           Services
         </NavLink>
       </li>
-    </>
-  );
 
-  const userLinks = (
-    <>
       <li>
-        <NavLink to="/myservices" className="px-4 py-2 text-md font-semibold">
+        <NavLink to="/my-services" className="px-4 py-2 text-md font-semibold">
           My Services
         </NavLink>
       </li>
       <li>
-        <NavLink to="/addservice" className="px-4 py-2 text-md font-semibold">
+        <NavLink to="/add-service" className="px-4 py-2 text-md font-semibold">
           Add Service
         </NavLink>
       </li>
@@ -100,16 +99,30 @@ const NavBar = () => {
       </div>
     </div>
   ) : (
-    <input
-      type="checkbox"
-      onChange={(e) => handleTheme(e.target.checked)}
-      defaultChecked={theme === "dark"}
-      className="toggle"
-    />
+    <>
+      <ul className="flex items-center">
+        <li>
+          <NavLink
+            to="/login"
+            className="px-4 py-2 text-md font-semibold"
+          >
+            Login
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/register"
+            className="block px-4 py-2 rounded-md font-semibold text-white bg-primary"
+          >
+            Sign Up
+          </NavLink>
+        </li>
+      </ul>
+    </>
   );
 
   return (
-    <div className="navbar bg-base-100 px-4 sm:px-10 py-4 items-center sticky top-0 z-50 shadow">
+    <div className="navbar bg-base-100 px-2 sm:px-4 py-4 items-center sticky top-0 z-50 shadow">
       <div className="navbar-start">
         <div className="dropdown lg:hidden">
           <label tabIndex={0} className="btn btn-ghost">
@@ -120,37 +133,41 @@ const NavBar = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-16 6h16" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16m-16 6h16"
+              />
             </svg>
           </label>
-          <ul tabIndex={0} className="menu menu-compact dropdown-content bg-base-100 rounded-box mt-2 w-52 p-2 shadow">
+          <ul
+            tabIndex={0}
+            className="menu menu-compact dropdown-content bg-base-100 rounded-box mt-2 w-52 p-2 shadow"
+          >
             {commonLinks}
             {!user && (
               <>
                 <li>
-                  <NavLink to="/login" className="px-4 py-2 font-semibold">
+                  <NavLink to="/login" className="px-4 py-2 text-md font-semibold">
                     Login
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/register" className="px-4 py-2 font-semibold">
+                  <NavLink to="/register" className="w-full text-left px-4 py-2 hover:bg-gray-100 rounded-md font-semibold text-gray-600">
                     Register
                   </NavLink>
                 </li>
               </>
             )}
-            {user && userLinks}
           </ul>
         </div>
-        <h2 className="text-4xl font-bold">
+        <h2 className="text-3xl font-bold">
           daily<span className="text-primary">FIX</span>
         </h2>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          {commonLinks}
-          {user && userLinks}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{commonLinks}</ul>
       </div>
       <div className="navbar-end flex items-center gap-4">{authLinks}</div>
     </div>

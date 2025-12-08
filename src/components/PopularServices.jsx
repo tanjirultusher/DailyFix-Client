@@ -64,9 +64,11 @@ const PopularServices = () => {
                 ))}
               </div>
 
-              <Link to={`/service/${service._id}`}>
+              <Link to={`/service/${service.serviceId}`}>
                 <div className="card-actions mt-2">
-                  <button className="btn btn-primary btn-sm">View Details</button>
+                  <button className="btn btn-primary btn-sm">
+                    View Details
+                  </button>
                 </div>
               </Link>
             </div>

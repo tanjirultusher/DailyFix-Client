@@ -40,7 +40,7 @@ const DiscountBanner = () => {
           transition={{ duration: 1, delay: 0.6 }}
         >
           Enjoy up to{" "}
-          <span className="font-bold text-yellow-300">50% OFF</span> on any Service this weekend only!
+          <span className="font-bold text-yellow-300">10% OFF</span> on any Service this weekend only!
         </motion.p>
 
 =        <motion.div

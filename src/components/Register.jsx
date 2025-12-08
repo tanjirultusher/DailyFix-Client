@@ -6,7 +6,6 @@ import { updateProfile } from "firebase/auth";
 import { AuthContext } from "../contexts/AuthContext";
 import Swal from "sweetalert2";
 
-
 const Register = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -22,17 +21,18 @@ const Register = () => {
     const name = event.target.name.value;
     const photoURL = event.target.photoURL.value;
     const email = event.target.email.value;
-    const role = event.target.role.value; 
+    const role = event.target.role.value;
     const password = event.target.password.value;
 
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
+    const passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
 
     if (!passwordPattern.test(password)) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Password must be at least 6 characters long, with upper, lower, and special characters.",
-      })
+      });
       return;
     }
 
@@ -55,7 +55,7 @@ const Register = () => {
         return updateProfile(user, {
           displayName: name,
           photoURL: photoURL,
-        }).then(() => ({ ...user, role })); 
+        }).then(() => ({ ...user, role }));
       })
       .then((user) => {
         console.log("After profile update:", user);
@@ -94,10 +94,10 @@ const Register = () => {
           text: error.message,
         });
       });
-    };
+  };
 
-    const handleGoogleSignUp = () => {
-      signInWithGoogle()
+  const handleGoogleSignUp = () => {
+    signInWithGoogle()
       .then((result) => {
         const user = result.user;
 
@@ -105,7 +105,7 @@ const Register = () => {
           name: user.displayName,
           email: user.email,
           image: user.photoURL,
-          role: "user", 
+          role: "user",
           uid: user.uid,
         };
 
@@ -114,15 +114,15 @@ const Register = () => {
           headers: { "content-type": "application/json" },
           body: JSON.stringify(newUser),
         })
-        .then((res) => res.json())
-        .then((data) => {
-          Swal.fire({
+          .then((res) => res.json())
+          .then((data) => {
+            Swal.fire({
               icon: "success",
               title: "Google Registration Successful",
               text: "Your account has been created successfully!",
             });
-        });
-        navigate(location?.state || "/register");
+          });
+        navigate(location?.state || "/");
       })
       .catch((error) => {
         console.log(error);
@@ -132,7 +132,7 @@ const Register = () => {
           text: error.message,
         });
       });
-    };
+  };
 
   const handleTogglePasswordShow = (event) => {
     event.preventDefault();
@@ -143,7 +143,7 @@ const Register = () => {
   });
 
   return (
-    <div className="hero bg-primary min-h-[80vh]">
+    <div className="hero min-h-[80vh]">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold">Register now!</h1>
@@ -154,12 +154,12 @@ const Register = () => {
         <div className="card bg-base-100 w-full max-w-sm shrink-0">
           <div className="card-body">
             <form onSubmit={handleRegister}>
-              <fieldset className="fieldset">
-
+              <fieldset className="fieldset shadow-sm p-4 rounded-md">
                 {/* name field */}
                 <label className="label font-semibold">Name</label>
                 <input
-                  type="text" name="name"
+                  type="text"
+                  name="name"
                   className="input input-bordered w-full h-8"
                   placeholder="Enter your name"
                 />
@@ -167,7 +167,8 @@ const Register = () => {
                 {/* photo url field */}
                 <label className="label font-semibold">Photo URL</label>
                 <input
-                  type="text" name="photoURL"
+                  type="text"
+                  name="photoURL"
                   className="input input-bordered w-full h-8"
                   placeholder="Enter your Photo URL"
                 />
@@ -175,7 +176,8 @@ const Register = () => {
                 {/* name field */}
                 <label className="label font-semibold">Role</label>
                 <input
-                  type="text" name="role"
+                  type="text"
+                  name="role"
                   className="input input-bordered w-full h-8"
                   placeholder="Enter your role"
                 />
@@ -220,6 +222,47 @@ const Register = () => {
                 >
                   Create Account
                 </button>
+
+                <button
+                  onClick={handleGoogleSignUp}
+                  className="btn bg-white text-black border-[#e5e5e5] mt-1 h-8"
+                >
+                  <svg
+                    aria-label="Google logo"
+                    width="16"
+                    height="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                  >
+                    <g>
+                      <path d="m0 0H512V512H0" fill="#fff"></path>
+                      <path
+                        fill="#34a853"
+                        d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
+                      ></path>
+                      <path
+                        fill="#4285f4"
+                        d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
+                      ></path>
+                      <path
+                        fill="#fbbc02"
+                        d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
+                      ></path>
+                      <path
+                        fill="#ea4335"
+                        d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
+                      ></path>
+                    </g>
+                  </svg>
+                  Register with Google
+                </button>
+
+                <p className="text-center text-sm mt-2">
+                  Already have an account?{" "}
+                  <Link className="text-primary underline" to="/login">
+                    Login
+                  </Link>
+                </p>
               </fieldset>
 
               {success && (
@@ -227,47 +270,6 @@ const Register = () => {
               )}
               {error && <p className="text-red-500">{error}</p>}
             </form>
-
-            <button
-              onClick={handleGoogleSignUp}
-              className="btn bg-white text-black border-[#e5e5e5] mt-1 h-8"
-            >
-              <svg
-                aria-label="Google logo"
-                width="16"
-                height="16"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-              >
-                <g>
-                  <path d="m0 0H512V512H0" fill="#fff"></path>
-                  <path
-                    fill="#34a853"
-                    d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
-                  ></path>
-                  <path
-                    fill="#4285f4"
-                    d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
-                  ></path>
-                  <path
-                    fill="#fbbc02"
-                    d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
-                  ></path>
-                  <path
-                    fill="#ea4335"
-                    d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
-                  ></path>
-                </g>
-              </svg>
-              Register with Google
-            </button>
-
-            <p className="text-center text-sm mt-2">
-              Already have an account?{" "}
-              <Link className="text-primary underline" to="/login">
-                Login
-              </Link>
-            </p>
           </div>
         </div>
       </div>
