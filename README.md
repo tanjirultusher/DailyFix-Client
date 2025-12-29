@@ -12,28 +12,28 @@ Register and log in securely using Firebase Authentication
 Manage personal profiles
 
 
-## Core Features
+## 🔑 Core Features
 
--->User Authentication (Firebase Auth)
+- **User Authentication (Firebase Auth)**
+  - Email & Password based login
+  - Protected routes for authorized users
 
-Email/Password Login
-Persistent login state
-Protected routes
+- **User Profile Management**
+  - Update user name and profile picture
+  - View user information (email, UID, account status)
 
---> User Profile Management
+- **Service Listing & Details**
+  - Browse services by multiple categories
+  - View service descriptions, images, and pricing
+  - Customer ratings & reviews
 
-Update name & profile picture
-Display user info (email, uid, status)
+- **Service Management**
+  - Add new services
+  - Update existing services
+  - Delete services
 
---> Service Listing and Details
-
-Explore multiple categories
-View service descriptions, images, and pricing
-Customer ratings & reviews (UI prepared)
-
---> Add Services, Update and Delete services
-
---> Booking System 
+- **Booking System**
+  - Book services through a simple and intuitive flow
 
 
 ### Technology Stack
