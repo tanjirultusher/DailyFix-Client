@@ -66,8 +66,3 @@ Customer ratings & reviews (UI prepared)
 "tailwindcss": "^4.1.17"
 
 
-## Authentication
-
-Firebase
-
-
