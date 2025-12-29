@@ -36,25 +36,35 @@ Customer ratings & reviews (UI prepared)
 --> Booking System 
 
 
-## Tech Stack
+### Technology Stack
+- **Frontend**: React, Tailwind CSS  
+- **State Management**: TanStack React Query  
+- **Backend/API**: Custom Express/Node server 
+- **Authentication**: Firebase Authentication  
+- **Payments**: Integrated payment gateway (Stripe)  
+- **Charts & Visualizations**: Recharts  
+- **UI Enhancements**: Swiper, Framer Motion (animations), SweetAlert2 (alerts), React Icons  
 
-"dependencies": {
-    "@tailwindcss/vite": "^4.1.17",
-    "firebase": "^12.5.0",
-    "framer-motion": "^12.23.24",
-    "lucide-react": "^0.553.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-hot-toast": "^2.6.0",
-    "react-icons": "^5.5.0",
-    "react-router": "^7.9.5",
-    "react-router-dom": "^7.9.5",
-    "react-toastify": "^11.0.5",
-    "sweetalert2": "^11.26.3",
-    "swiper": "^12.0.3",
-    "tailwindcss": "^4.1.17"
-  }
-  
+### NPM Packages Used
+```json
+"@tailwindcss/vite": "^4.1.17",
+"@tanstack/react-query": "^5.90.12",
+"axios": "^1.13.2",
+"firebase": "^12.6.0",
+"framer-motion": "^12.23.26",
+"leaflet": "^1.9.4",
+"react": "^19.2.0",
+"react-dom": "^19.2.0",
+"react-hook-form": "^7.68.0",
+"react-icons": "^5.5.0",
+"react-leaflet": "^5.0.0-rc.2",
+"react-responsive-carousel": "^3.2.23",
+"react-router": "^7.10.1",
+"recharts": "^3.5.1",
+"sweetalert2": "^11.26.4",
+"swiper": "^12.0.3",
+"tailwindcss": "^4.1.17"
+
 
 ## Authentication
 
